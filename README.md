@@ -23,7 +23,7 @@
 - Visuals generated in p5.js changes depending on the condition of the atmosphere.
 - If using humidity detector, the number of of raindrop and dry icons changes depending on the humidity levels (e.g. if humidity is high there will more raindrop icons and less dry icons appearing on the screen).
 - If using temperature sensor, the palette of the visuals ranges from warm to cool depending on the temperature. (e.g. the visuals take on a warmer color palette if the temperature is high, and transitions to a cooler color palette as the temperature decreases).
-- If using an air quality sensor, the visuals range from blurry to sharp depending on the air quality levels (e.g. the worse the air quality gets, the visuals get blurrier. As the air quality improves, the visuals get sharper).
+- If using an air quality sensor, the visuals in the form of an uploaded image of choice will range from blurry to sharp or grayscale to colored depending on the air quality levels (e.g. the worse the air quality gets, the visuals get blurrier/desaturated. As the air quality improves, the visuals get sharper/colored).
 - For sketch, please refer to 'IDEA 3' in Sketches.
 
 #### Sketches
