@@ -1,60 +1,32 @@
-# p5.js Template
-
-This is a README file that can be used to describe and document your assignment.
-
-Markdown Cheatsheet (from [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/)):
-
----
----
-
-# Heading1
-## Heading2
-### Heading3
-#### Heading4
-##### Heading5
-###### Heading6
-
-**bold text**
-
-*italicized text*
-
-~~strikethrough text~~
-
-Ordered List:
-1. First item
-2. Second item
-3. Third item
-
-Unordered List:
-- First item
-- Second item
-- Third item
-
-`short code block`
-
-```
-extended code block
-fun() {
-  return 0
-}
-```
-
-Link:  
-[linked text](https://www.example.com)
+## Creative Coding (DM-GY 6063) - Mid Term 
 
 
-Image with url:  
-![image description](https://dm-gy-6063-2024f-b.github.io/assets/homework/02/clark-espaco-modulado-00.jpg)
+### Milestone #1
+
+#### Idea #1
+- Utilizing [touch sensors](https://www.amazon.com/gp/product/B0BPG115T1/ref=ewc_pr_img_2?smid=A2F4WL24P91UAV&th=1)
+- Will be using up to 4 sensors, each representing a stem of a song sample (e.g bass, treble, vocals, percussion)
+- When user presses a sensor, the stem plays and is accompanied by a visual representing the stem on the monitor (p5.js sound)
+- Can press on more sensors to achieve a layered effect of visuals and stems
+- For sketch, please refer to 'IDEA 1' in Sketches
+
+#### Idea #2
+- Utilizing either a [rotary mode encoder](https://www.amazon.com/gp/product/B0C6Q67V97/ref=ewc_pr_img_1?smid=A1YZW40LYQY3L1&psc=1) or [ultrasonic sensor](https://www.amazon.com/gp/product/B0BDFLPZ2R/ref=ewc_pr_img_4?smid=A2F4WL24P91UAV&th=1)
+- There is an artwork constantly being generated in p5.js on the monitor
+- If using a rotary mode encoder module, the artwork reacts according to which direction the module is being turned
+- If using a ultrasonic sensor, the artwork reacts through proximity of the user
+- Found these links as inspiration: [link 01](https://www.iaacblog.com/programs/genart-arduino-x-processing/) and [link 02](https://studioexpanse.com/physical-computing/serial-to-p5js)
+- For sketch, please refer to 'IDEA 2' in Sketches
+
+#### Idea #3
+- Utilizing either a [humidity detector](https://www.amazon.com/gp/product/B0CF561CRZ/ref=ewc_pr_img_3?smid=A2F4WL24P91UAV&th=1), [temperature sensor](https://www.amazon.com/gp/product/B0BPFYQT8C/ref=ewc_pr_img_1?smid=A2F4WL24P91UAV&th=1) or [air quality sensor](https://www.amazon.com/gp/product/B0B389LQCQ/ref=ewc_pr_img_1?smid=A1GMZO8N77UCMQ&psc=1)
+- Visuals generated in p5.js changes depending on the condition of the atmosphere
+- If using humidity detector, the number of of raindrop and dry icons changes depending on the humidity levels (e.g. if humidity is high there will more raindrop icons and less dry icons appearing on the screen)
+- If using temperature sensor, the palette of the visuals ranges from warm to cool depending on the temperature. (e.g. the visuals take on a warmer color palette if the temperature is high, and transitions to a cooler color palette as the temperature decreases)
+- If using an air quality sensor, the visuals range from blurry to sharp depending on the air quality levels (e.g. the worse the air quality gets, the visuals get blurrier. As the air quality improves, the visuals get sharper)
+- For sketch, please refer to 'IDEA 3' in Sketches
+
+#### Sketches
+- Please click [here](https://drive.google.com/file/d/1JJscx6rKFgs3J563x_0qQItb5fbHCSzy/view?usp=sharing)
 
 
-Image on repo:  
-![image description](./file-name.jpg)
-
-
-To start a new line, add two spaces at the end of a line, like this:  
-this is a new line.
-
-
-To start a new paragraph, leave an empty line between two lines of text.
-
-This is a new paragraph.
