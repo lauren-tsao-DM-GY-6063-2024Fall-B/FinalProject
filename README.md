@@ -1,4 +1,4 @@
-## Creative Coding (DM-GY 6063) - Mid Term 
+## Creative Coding (DM-GY 6063) - Final Project 
 
 
 ### Milestone #1
@@ -6,7 +6,7 @@
 #### Idea #1
 - Utilizing [touch sensors](https://www.amazon.com/gp/product/B0BPG115T1/ref=ewc_pr_img_2?smid=A2F4WL24P91UAV&th=1)
 - Will be using up to 4 sensors, each representing a stem of a song sample (e.g bass, treble, vocals, percussion)
-- When user presses a sensor, the stem plays and is accompanied by a visual representing the stem on the monitor (p5.js sound)
+- When the user presses a sensor, the stem plays and is accompanied by a visual representing the stem on the monitor (p5.js sound)
 - Can press on more sensors to achieve a layered effect of visuals and stems
 - For sketch, please refer to 'IDEA 1' in Sketches
 
