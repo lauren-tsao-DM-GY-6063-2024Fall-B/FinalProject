@@ -1,5 +1,19 @@
 ## Creative Coding (DM-GY 6063) - Final Project 
 
+### Milestone #2
+
+#### Write-up
+- Please click [here](https://docs.google.com/document/d/1udwkpx5haJ0bILWwHMvCfNQjeDVwN6pv9wwsej2UPOA/edit?usp=sharing).
+
+#### About Test 01
+- When the mouse is pressed, a randomized Superformula shape is drawn
+- When the mouse is released, the shape stops drawing and the mouse can be pressed again to draw a new one
+- To clear the canvas, press spacebar.
+
+#### About Test 02
+- Has a layering effect. Shapes will keep generating as long as the mouse is pressed.
+- When the mouse is released, an animated shape appears.
+- When the mouse is pressed again, the shape stops animating and the layering effect occurs again, covering it eventually.
 
 ### Milestone #1
 
