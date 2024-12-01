@@ -47,7 +47,7 @@ function draw() {
     // draw the shape at the mouse position, which evolves over time as the mouse is pressed
     translate(currentMouseX, currentMouseY);
     stroke(0, random(0, 200), random(255), 35); // (color, alpha value)
-    strokeWeight(2)
+    strokeWeight(2);
 
     beginShape();
     // LEGEND:

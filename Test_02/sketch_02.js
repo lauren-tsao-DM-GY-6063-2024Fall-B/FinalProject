@@ -1,7 +1,8 @@
 let numPoints = 60;
 let strokeColor = 0;
 let x, y, z;
-let r, currentAngle = 0;
+let r;
+let currentAngle = 0;
 let angleStep = 0.1;
 let uScale = 200;
 let spikeFactor = 1;
@@ -14,14 +15,14 @@ let randomX, randomY;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(255);
-  fill(255);
+  background(200);
+  fill(200);
 }
 
 function draw() {
-  // only draw when random x and y positions have been set
+  // only draw when randomized x and y positions have been set
   // undefined = declare a variable but no value is assigned to it
-  if (randomX !== undefined && randomY !== undefined) { // if randomX and random Y is not equal to undefined (i.e defined)..
+  if (randomX !== undefined && randomY !== undefined) { // if randomX and randomY is not equal to undefined (i.e defined)..
     translate(randomX, randomY);  // .. move origin point to random position and execute the Superformula code to draw the shape
 
     stroke(strokeColor, 35);
