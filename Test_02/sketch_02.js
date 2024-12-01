@@ -22,7 +22,7 @@ function draw() {
   // only draw when random x and y positions have been set
   // undefined = declare a variable but no value is assigned to it
   if (randomX !== undefined && randomY !== undefined) { // if randomX and random Y is not equal to undefined (i.e defined)..
-    translate(randomX, randomY);  // .. move origin point to random position and draw the shape
+    translate(randomX, randomY);  // .. move origin point to random position and execute the Superformula code to draw the shape
 
     stroke(strokeColor, 35);
     beginShape();
