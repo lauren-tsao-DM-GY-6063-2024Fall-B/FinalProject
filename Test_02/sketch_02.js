@@ -15,8 +15,8 @@ let randomX, randomY;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(200);
-  fill(200);
+  background(255);
+  fill(255);
 }
 
 function draw() {
