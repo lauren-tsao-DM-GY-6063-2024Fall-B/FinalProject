@@ -1,50 +1,66 @@
-int pv2;  // previous value of pin 2
-int nClicks; // number of clicks
+/*
+ * Created by ArduinoGetStarted.com
+ *
+ * This example code is in the public domain
+ *
+ * Tutorial page: https://arduinogetstarted.com/tutorials/arduino-button-library
+ *
+ * This example:
+ *   + uses debounce for multiple buttons.
+ *   + reads state of multiple buttons
+ *   + detects the pressed and released events of multiple buttons
+ */
+
+#include <ezButton.h>
+
+ezButton button1(2);  // create ezButton object that attach to pin 6;
+ezButton button2(3);  // create ezButton object that attach to pin 7;
+ezButton button3(4);  // create ezButton object that attach to pin 8;
 
 void setup() {
-  pinMode(2, OUTPUT);
+  Serial.begin(9600);
 
-
-// initiate serial communication between Arduino board and computer
-// Serial = allows sending and receiving data to and from Arduino via USB port, typically using the Serial.print(), Serial.println(), Serial.read()
-// begin = start serial communication
-// 9600 = baud rate (defines the speed the data is transmitted in bits/bauds pr second (bps)), so this is 9600 bps
-Serial.begin(9600);
-  lastSend = 0;
-
-pv2 = 0;
-nClicks = 0; 
+ pinMode(2, INPUT_PULLUP); // from research NOT part of library
+  pinMode(3, INPUT_PULLUP);
+  pinMode(4, INPUT_PULLUP);
+  
+  button1.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button2.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button3.setDebounceTime(50); // set debounce time to 50 milliseconds
 }
 
-
 void loop() {
+  button1.loop(); // MUST call the loop() function first
+  button2.loop(); // MUST call the loop() function first
+  button3.loop(); // MUST call the loop() function first
 
-// BUTTON
-  int v2 = digitalRead(2); // read input from pin 2 and put it in v2 variable;
+  int btn1State = button1.getState();
+  int btn2State = button2.getState();
+  int btn3State = button3.getState();
+  Serial.print("button 1 state: ");
+  Serial.println(btn1State);
+  // Serial.print("button 2 state: ");
+  // Serial.println(btn2State);
+  // Serial.print("button 3 state: ");
+  // Serial.println(btn3State);
 
-  if(v2 == 1 && pv2 == 0) { // if current value of pin 2 is 1 (HIGH)(pressed) and previous value of pin 2 is 0 (LOW)(released)..
-    nClicks += 1; // .. increase nClicks counter by 1
-  }
+  if(button1.isPressed())
+    Serial.println("The button 1 is pressed");
 
-  pv2 = v2; // update the previous value of pin 2 (pv2) to current value of pin 2 (v2)
+  if(button1.isReleased())
+    Serial.println("The button 1 is released");
 
-  // print the following line everytime the above is executed
-  // "v2:" = title for v2's value (String(v2))
-  // String(v2) = converts value of v2 (either 1 or 0 dependant on pin 2's state (HIGH/LOW)) into a string
-  // "count" = another title, for number of clicks (String(nClicks))
-  // String(nClicks) = converts nClicks into a string
-  // so if button is pressed 3 times, it should read as "v2:1count3"
-  Serial.println("v2:" + String(v2) + "count" + String(nClicks));
+  // if(button2.isPressed())
+  //   Serial.println("The button 2 is pressed");
 
-  // if the button has been pressed 5 times, turn on LED on pin 12
-  if (nClicks == 5) { // if number of clicks is equals to 5 and LED on pin 12 is not on
-    Serial.println("Pin 2 UNLOCKED!");  // print "Pin 12 UNLOCKED" as visual feedback
-  }
+  // if(button2.isReleased())
+  //   Serial.println("The button 2 is released");
 
-  if (millis() - lastSend > 80) { // p5js will read x times per second
-    Serial.println(v2);
-    lastSend = millis();
-  }
+  // if(button3.isPressed())
+  //   Serial.println("The button 3 is pressed");
 
-  delay(2);
+  // if(button3.isReleased())
+  //   Serial.println("The button 3 is released");
+
+    delay(100);
 }
