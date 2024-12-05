@@ -13,16 +13,16 @@
 
 #include <ezButton.h>
 
-ezButton button1(2);  // create ezButton object that attach to pin 6;
-ezButton button2(3);  // create ezButton object that attach to pin 7;
-ezButton button3(4);  // create ezButton object that attach to pin 8;
+ezButton button1(2);  // create ezButton object that attach to pin 2;
+ezButton button2(3);  // create ezButton object that attach to pin 3;
+ezButton button3(4);  // create ezButton object that attach to pin 4;
 
 void setup() {
   Serial.begin(9600);
 
- pinMode(2, INPUT_PULLUP); // from research NOT part of library
-  pinMode(3, INPUT_PULLUP);
-  pinMode(4, INPUT_PULLUP);
+//  pinMode(2, INPUT_PULLUP); // from research NOT part of library
+//   pinMode(3, INPUT_PULLUP);
+//   pinMode(4, INPUT_PULLUP);
   
   button1.setDebounceTime(50); // set debounce time to 50 milliseconds
   button2.setDebounceTime(50); // set debounce time to 50 milliseconds
@@ -39,10 +39,10 @@ void loop() {
   int btn3State = button3.getState();
   Serial.print("button 1 state: ");
   Serial.println(btn1State);
-  // Serial.print("button 2 state: ");
-  // Serial.println(btn2State);
-  // Serial.print("button 3 state: ");
-  // Serial.println(btn3State);
+  Serial.print("button 2 state: ");
+  Serial.println(btn2State);
+  Serial.print("button 3 state: ");
+  Serial.println(btn3State);
 
   if(button1.isPressed())
     Serial.println("The button 1 is pressed");
@@ -50,17 +50,17 @@ void loop() {
   if(button1.isReleased())
     Serial.println("The button 1 is released");
 
-  // if(button2.isPressed())
-  //   Serial.println("The button 2 is pressed");
+  if(button2.isPressed())
+    Serial.println("The button 2 is pressed");
 
-  // if(button2.isReleased())
-  //   Serial.println("The button 2 is released");
+  if(button2.isReleased())
+    Serial.println("The button 2 is released");
 
-  // if(button3.isPressed())
-  //   Serial.println("The button 3 is pressed");
+  if(button3.isPressed())
+    Serial.println("The button 3 is pressed");
 
-  // if(button3.isReleased())
-  //   Serial.println("The button 3 is released");
+  if(button3.isReleased())
+    Serial.println("The button 3 is released");
 
     delay(100);
 }
