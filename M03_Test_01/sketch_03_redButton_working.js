@@ -62,6 +62,8 @@ function setup() {
 function draw() {
   background(255);
 
+//// RED BUTTON ////
+
   // Only generate a new random position when redButton is pressed (changes to 0)
   if (redButton === 0 && !circleDrawn) {
     // Generate new random position
@@ -88,4 +90,5 @@ function draw() {
   if (mSerial.opened() && mSerial.availableBytes() > 0) {
     receiveSerial();
   }
+
 }
