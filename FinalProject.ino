@@ -19,14 +19,10 @@ ezButton button3(4);  // create ezButton object that attach to pin 4;
 
 void setup() {
   Serial.begin(9600);
-
-//  pinMode(2, INPUT_PULLUP); // from research NOT part of library
-//   pinMode(3, INPUT_PULLUP);
-//   pinMode(4, INPUT_PULLUP);
   
-  button1.setDebounceTime(50); // set debounce time to 50 milliseconds
-  button2.setDebounceTime(50); // set debounce time to 50 milliseconds
-  button3.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button1.setDebounceTime(100); // set debounce time to 50 milliseconds
+  button2.setDebounceTime(100); // set debounce time to 50 milliseconds
+  button3.setDebounceTime(100); // set debounce time to 50 milliseconds
 }
 
 void loop() {
