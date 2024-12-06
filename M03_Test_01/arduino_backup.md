@@ -30,33 +30,33 @@ void loop() {
   button2.loop(); // MUST call the loop() function first
   button3.loop(); // MUST call the loop() function first
 
-  // int btn1State = button1.getState();
-  // int btn2State = button2.getState();
-  // int btn3State = button3.getState();
-  // Serial.print("button 1 state: ");
-  // Serial.println(btn1State);
-  // Serial.print("button 2 state: ");
-  // Serial.println(btn2State);
-  // Serial.print("button 3 state: ");
-  // Serial.println(btn3State);
+  int btn1State = button1.getState();
+  int btn2State = button2.getState();
+  int btn3State = button3.getState();
+  Serial.print("button 1 state: ");
+  Serial.println(btn1State);
+  Serial.print("button 2 state: ");
+  Serial.println(btn2State);
+  Serial.print("button 3 state: ");
+  Serial.println(btn3State);
 
   if(button1.isPressed())
-    Serial.println("button1pressed");
+    Serial.println("The button 1 is pressed");
 
   if(button1.isReleased())
-    Serial.println("button1released");
+    Serial.println("The button 1 is released");
 
   if(button2.isPressed())
-    Serial.println("button2pressed");
+    Serial.println("The button 2 is pressed");
 
   if(button2.isReleased())
-    Serial.println("button2released");
+    Serial.println("The button 2 is released");
 
   if(button3.isPressed())
-    Serial.println("button3pressed");
+    Serial.println("The button 3 is pressed");
 
   if(button3.isReleased())
-    Serial.println("button3released");
+    Serial.println("The button 3 is released");
 
     delay(100);
 }
