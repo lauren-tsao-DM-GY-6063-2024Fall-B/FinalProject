@@ -3,11 +3,11 @@ let connectButton;
 
 let redButton, blueButton;
 
-let redPosX, redPosY;  // Variables to store the red circle's position
-let redDrawn = false;  // Flag to track if the red circle has been drawn
+let redPosX, redPosY;  // Variables to store the circle's position
+let redDrawn = false;  // Flag to track if the circle has been drawn
 
-let bluePosX, bluePosY; // Variables to store the blue circle's position
-let blueDrawn = false;  // Flag to track if the blue circle has been drawn
+let bluePosX, bluePosY;
+let blueDrawn = false;
 
 function receiveSerial() {
   let line = mSerial.readUntil("\n"); // read from serial line (println from Arduino) until it gets to the end of the line
@@ -65,7 +65,7 @@ function setup() {
 function draw() {
   background(255);
 
-  //// RED BUTTON ////
+//// RED BUTTON ////
 
   // Only generate a new random position when redButton is pressed (changes to 0)
   if (redButton === 0 && !redDrawn) {
@@ -76,11 +76,12 @@ function draw() {
     redDrawn = true;  // Set flag to true to prevent multiple position updates
   }
 
-  // Draw the red circle at the generated position
+  // Draw the circle at the generated position
   if (redDrawn) {
+    translate(redPosX, redPosY);
     stroke(255, 0, 0, 35);
     strokeWeight(2);
-    ellipse(redPosX, redPosY, 100);  // Draw the red circle at the generated position
+    ellipse(0, 0, 100);  // Draw the circle at the generated position
   }
 
   // Reset the circle when the button goes back to a state other than 0
@@ -88,9 +89,9 @@ function draw() {
     redDrawn = false;
   }
 
-  //// BLUE BUTTON ////
+//// BLUE BUTTON ////
 
-  // Only generate a new random position when blueButton is pressed (changes to 0)
+  // Only generate a new random position when redButton is pressed (changes to 0)
   if (blueButton === 0 && !blueDrawn) {
     // Generate new random position
     bluePosX = random(width);  // New random X position
@@ -99,11 +100,12 @@ function draw() {
     blueDrawn = true;  // Set flag to true to prevent multiple position updates
   }
 
-  // Draw the blue circle at the generated position
+  // Draw the circle at the generated position
   if (blueDrawn) {
+    translate(bluePosX, bluePosY);
     stroke(0, random(0, 200), random(255), 35);
     strokeWeight(2);
-    ellipse(bluePosX, bluePosY, 100);  // Draw the blue circle at the generated position
+    ellipse(0, 0, 100);  // Draw the circle at the generated position
   }
 
   // Reset the circle when the button goes back to a state other than 0
@@ -111,8 +113,11 @@ function draw() {
     blueDrawn = false;
   }
 
+  ////
+
   // Check if serial data is available and process it
   if (mSerial.opened() && mSerial.availableBytes() > 0) {
     receiveSerial();
   }
+
 }
