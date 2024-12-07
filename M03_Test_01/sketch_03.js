@@ -1,15 +1,18 @@
-let numPoints = 500;
+let numPoints = 5; // this gives the white inner outlines
 let x, y;
-let r;
-let uScale = 1; // Define uScale globally
-let angleStep = 0.05;
+let r = 10;
+
+let angleStep = 20;
 let currentAngle = 0; // Initialize currentAngle globally
-let spikeFactor = 6;
-let sharpControl = 1;
-let xControl = 1;
-let yControl = 1;
-let xScale = 100;
-let yScale = 100;
+let spikeFactor = 1;
+
+let sharpControl = -1;
+let xControl = 0;
+let yControl = 0;
+
+let uScale = 200; // Define uScale globally
+let xScale = 1;
+let yScale = 1;
  
 
 let mSerial;
@@ -71,6 +74,7 @@ function connectToSerial() {
 }
 
 function setup() {
+  background(255);
   createCanvas(windowWidth, windowHeight);
 
   // set initial values
@@ -95,15 +99,22 @@ function setup() {
 }
 
 function draw() {
-  background(255);
 
   //// RED BUTTON ////
 
   // Only generate a new random position when redButton is pressed (changes to 0)
   if (redButton === 0 && !redDrawn) {
+
     // Generate new random position
     redPosX = random(width);  // New random X position
     redPosY = random(height); // New random Y position
+
+    spikeFactor = int(random(30, 40)); // smaller value = simpler, circular or polygonal shapes, larger value = more complex star-like shapes.
+    sharpControl = random(20); // lowering = sharper edges
+    xControl = random(100); // adjust xControl and yControl to adjust form, (e.g. one side longer or curvier than the other)
+    yControl = random(6);
+    uScale = random(100, 300); // range of randomized uniform sizes
+    angleStep = random(8, 10); // different levels of smoothness of shapes
 
     redDrawn = true;  // Set flag to true to prevent multiple position updates
   }
@@ -112,6 +123,9 @@ function draw() {
   if (redDrawn) {
     stroke(0, random(0, 200), random(255), 35); // (color, alpha value)
     strokeWeight(2);
+
+
+
     superformula(redPosX, redPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints);
   }
 
