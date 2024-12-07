@@ -1,16 +1,39 @@
-let numPoints = 500;
-let x, y;
-let r;
-let uScale = 1; // Define uScale globally
-let angleStep = 0.05;
-let currentAngle = 0; // Initialize currentAngle globally
-let spikeFactor = 6;
-let sharpControl = 1;
-let xControl = 1;
-let yControl = 1;
-let xScale = 100;
-let yScale = 100;
+// number of points for the Superformula
+ // smaller value =  more angular or polygonal shape with fewer points, larger value = smoother and more continuous the shape will look
+ // kinda like 3D polygons (more polygons, finer details)
+ let numPoints = 5;
+
+ let x, y, z;
  
+ // radius = determines the local distance of each point on the shape from the center
+ // uScale affects the r (increasing uScale will lead to a larger shape)
+ let r = 10;
+ 
+ // spacing between the points around the shape (i.e angular distance between each point)
+ // smaller value = points are closer together, larger value = points are further apart
+ let angleStep = 20;
+ 
+ // determines the points around the circle (polar coordinates).
+ // (i.e. angle used to generate the points around the shape)
+ let currentAngle = 0;
+ 
+ // controls the pointiness, symmetry and overall structure of the shape (i.e how many lobes the shape will have)
+ // useful for creating stars and flowers
+ // smaller value = more gentle, higher value = more spiky
+ let spikeFactor = 1;
+ 
+ // exponents (powers) that affect the shape’s complexity and curvature
+ let sharpControl = -1; // controls the sharpness of the overall shape (lower values = sharper edges, higher values = rounder edges)
+ let xControl = 0; // xControl and yControl controls x/y values that distort the the curvature of the shape, giving it a more lopsided or curvy look depending on their values
+ let yControl = 0;
+ 
+ // overall scaling factors
+ let uScale = 200; // controls the uniform scaling of the shape 
+ let xScale = 1; // x direction
+ let yScale = 1;  // y direction
+ 
+
+
 
 let mSerial;
 let connectButton;
@@ -22,24 +45,6 @@ let redDrawn = false;  // Flag to track if the red circle has been drawn
 
 let bluePosX, bluePosY; // Variables to store the blue circle's position
 let blueDrawn = false;  // Flag to track if the blue circle has been drawn
-
-
-
-//superformula function
-function superformula(xCenter, yCenter, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints) {
-  beginShape();
-  translate(xCenter, yCenter);
-  for (let i = 1; i < numPoints; i++) {
-    r = uScale * pow(((pow(abs(cos(spikeFactor * currentAngle / 4) / xScale), xControl)) + (pow(abs(sin(spikeFactor * currentAngle / 4) / yScale), yControl))), (-1 / sharpControl)); // Superformula formula
-    currentAngle = currentAngle + angleStep;
-    x = r * cos(currentAngle);
-    y = r * sin(currentAngle);
-    curveVertex(x, y);
-  }
-  endShape();
-}
-
-
 
 function receiveSerial() {
   let line = mSerial.readUntil("\n"); // read from serial line (println from Arduino) until it gets to the end of the line
@@ -110,9 +115,9 @@ function draw() {
 
   // Draw the red circle at the generated position
   if (redDrawn) {
-    stroke(0, random(0, 200), random(255), 35); // (color, alpha value)
+    stroke(255, 0, 0, 35);
     strokeWeight(2);
-    superformula(redPosX, redPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints);
+    ellipse(redPosX, redPosY, 100);  // Draw the red circle at the generated position
   }
 
   // Reset the circle when the button goes back to a state other than 0
