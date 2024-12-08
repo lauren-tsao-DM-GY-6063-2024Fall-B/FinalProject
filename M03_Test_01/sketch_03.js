@@ -26,6 +26,12 @@ let redDrawn = false;  // Flag to track if the red circle has been drawn
 let bluePosX, bluePosY; // Variables to store the blue circle's position
 let blueDrawn = false;  // Flag to track if the blue circle has been drawn
 
+let yellowPosX, yellowPosY;
+let yellowDrawn = false;
+
+let greenPosX, greenPosY;
+let greenDrawn = false;
+
 let mPiano, mPercStrings;
 let mPianoVol, mPercStringsVol;
 
@@ -33,7 +39,8 @@ let mPianoVol, mPercStringsVol;
 function preload() {
   mPiano = loadSound("../assets/piano.mp3");
   mPercStrings = loadSound("../assets/percussion_strings.mp3");
-  // mKickSynth = loadSound("../assets/kicks_synths.mp3");
+  mKickSnares = loadSound("../assets/kicks_snares.mp3");
+  mSynth = loadSound("../assets/synths.mp3")
 }
 
 
@@ -62,14 +69,17 @@ function receiveSerial() {
     // splitting the line into sensor values
     let buttonValues = split(line, ','); // split line at ','
 
-    if (buttonValues.length === 3) { // if there are exactly 3 values in the array after splitting..
+    if (buttonValues.length === 4) { // if there are exactly 3 values in the array after splitting..
       let buttonV1 = int(buttonValues[0]); // first sensor value
       let buttonV2 = int(buttonValues[1]); // second sensor value
       let buttonV3 = int(buttonValues[2]); // third sensor value
+      let buttonV4 = int(buttonValues[3]); // third sensor value
 
       // map the sensor values to appropriate ranges
       redButton = buttonV1;  // Set the redButton value to buttonV1
       blueButton = buttonV2;  // Set the blue Button value to buttonV2
+      yellowButton = buttonV3;
+      greenButton = buttonV4;
     }
   }
 }
@@ -83,6 +93,10 @@ function connectToSerial() {
     mPiano.loop();
     mPercStrings.play();
     mPercStrings.loop();
+    mKickSnares.play();
+    mKickSnares.loop();
+    mSynths.play();
+    mSynths.loop();
   }
 }
 
@@ -93,6 +107,8 @@ function setup() {
   // set initial values
   redButton = 1;
   blueButton = 1;
+  yellowButton = 1;
+  greenButton = 1;
 
   // create a serial connection
   mSerial = createSerial(); // from the p5.js serial library
@@ -136,10 +152,15 @@ function draw() {
 
   // Draw the red circle at the generated position
   if (redDrawn) {
-    stroke(0, random(0, 200), random(255), 35); // (color, alpha value)
+    push();
+
+    blendMode(BURN);
+    stroke(255, 0, random(100, 255), 35); // (color, alpha value)
     strokeWeight(2);
 
     superformula(redPosX, redPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints);
+    
+    pop();
   }
 
   // Reset the circle when the button goes back to a state other than 0
@@ -179,6 +200,81 @@ function draw() {
 
     mPercStrings.setVolume(0)
   }
+
+  //// YELLOW BUTTON ////
+
+  // Only generate a new random position when blueButton is pressed (changes to 0)
+  if (yellowButton === 0 && !yellowDrawn) {
+
+    mKickSnares.setVolume(1)
+
+    yellowDrawn = true;  // Set flag to true to prevent multiple position updates
+  }
+
+  // Draw the blue circle at the generated position
+  if (yellowDrawn) {
+    push();
+
+    blendMode(HARD_LIGHT);
+    yellowPosX = random(width);  // New random X position
+    yellowPosY = random(height); // New random Y position
+    stroke(random(200, 236), random(200, 215), 0, 35);
+    strokeWeight(5);
+    noFill();
+    rect(yellowPosX, yellowPosY, random(100, 300));  // Draw the yellow square at the generated position
+
+    pop();
+  }
+
+  // Reset the circle when the button goes back to a state other than 0
+  if (yellowButton !== 0) {
+    yellowDrawn = false;
+
+    mKickSnares.setVolume(0)
+  }
+
+  //// RED BUTTON ////
+
+  // Only generate a new random position when redButton is pressed (changes to 0)
+  if (redButton === 0 && !redDrawn) {
+
+    // Generate new random position
+    redPosX = random(width);  // New random X position
+    redPosY = random(height); // New random Y position
+
+    spikeFactor = int(random(30, 40)); // smaller value = simpler, circular or polygonal shapes, larger value = more complex star-like shapes.
+    sharpControl = random(20); // lowering = sharper edges
+    xControl = random(100); // adjust xControl and yControl to adjust form, (e.g. one side longer or curvier than the other)
+    yControl = random(6);
+    uScale = random(100, 300); // range of randomized uniform sizes
+    angleStep = random(8, 10); // different levels of smoothness of shapes
+
+    mPiano.setVolume(1)
+
+    redDrawn = true;  // Set flag to true to prevent multiple position updates
+  }
+
+  // Draw the red circle at the generated position
+  if (redDrawn) {
+    push();
+
+    blendMode(BURN);
+    stroke(255, 0, random(100, 255), 35); // (color, alpha value)
+    strokeWeight(2);
+
+    superformula(redPosX, redPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints);
+    
+    pop();
+  }
+
+  // Reset the circle when the button goes back to a state other than 0
+  if (redButton !== 0) {
+    redDrawn = false;
+
+    mPiano.setVolume(0)
+  }
+
+  
 
   // Check if serial data is available and process it
   if (mSerial.opened() && mSerial.availableBytes() > 0) {
