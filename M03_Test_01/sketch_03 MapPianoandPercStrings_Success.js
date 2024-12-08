@@ -153,6 +153,9 @@ function draw() {
 
   // Only generate a new random position when blueButton is pressed (changes to 0)
   if (blueButton === 0 && !blueDrawn) {
+    // Generate new random position
+    bluePosX = random(width);  // New random X position
+    bluePosY = random(height); // New random Y position
 
     mPercStrings.setVolume(1)
 
@@ -161,16 +164,9 @@ function draw() {
 
   // Draw the blue circle at the generated position
   if (blueDrawn) {
-    push();
-
-    blendMode(MULTIPLY);
-    bluePosX = random(width);  // New random X position
-    bluePosY = random(height); // New random Y position
-    fill(0, random(0, 200), random(255), 35);
-    noStroke();
-    ellipse(bluePosX, bluePosY, random(50, 100));  // Draw the blue circle at the generated position
-
-    pop();
+    stroke(0, random(0, 200), random(255), 35);
+    strokeWeight(2);
+    ellipse(bluePosX, bluePosY, 100);  // Draw the blue circle at the generated position
   }
 
   // Reset the circle when the button goes back to a state other than 0

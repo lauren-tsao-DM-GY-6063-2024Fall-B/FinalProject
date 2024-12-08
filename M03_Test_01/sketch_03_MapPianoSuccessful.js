@@ -26,14 +26,12 @@ let redDrawn = false;  // Flag to track if the red circle has been drawn
 let bluePosX, bluePosY; // Variables to store the blue circle's position
 let blueDrawn = false;  // Flag to track if the blue circle has been drawn
 
-let mPiano, mPercStrings;
-let mPianoVol, mPercStringsVol;
+let mPiano;
+let mPianoVol;
 
 // load song stems
 function preload() {
   mPiano = loadSound("../assets/piano.mp3");
-  mPercStrings = loadSound("../assets/percussion_strings.mp3");
-  // mKickSynth = loadSound("../assets/kicks_synths.mp3");
 }
 
 
@@ -81,8 +79,6 @@ function connectToSerial() {
     connectButton.hide(); // hide the connect button once connected
     mPiano.play();
     mPiano.loop();
-    mPercStrings.play();
-    mPercStrings.loop();
   }
 }
 
@@ -153,31 +149,23 @@ function draw() {
 
   // Only generate a new random position when blueButton is pressed (changes to 0)
   if (blueButton === 0 && !blueDrawn) {
-
-    mPercStrings.setVolume(1)
+    // Generate new random position
+    bluePosX = random(width);  // New random X position
+    bluePosY = random(height); // New random Y position
 
     blueDrawn = true;  // Set flag to true to prevent multiple position updates
   }
 
   // Draw the blue circle at the generated position
   if (blueDrawn) {
-    push();
-
-    blendMode(MULTIPLY);
-    bluePosX = random(width);  // New random X position
-    bluePosY = random(height); // New random Y position
-    fill(0, random(0, 200), random(255), 35);
-    noStroke();
-    ellipse(bluePosX, bluePosY, random(50, 100));  // Draw the blue circle at the generated position
-
-    pop();
+    stroke(0, random(0, 200), random(255), 35);
+    strokeWeight(2);
+    ellipse(bluePosX, bluePosY, 100);  // Draw the blue circle at the generated position
   }
 
   // Reset the circle when the button goes back to a state other than 0
   if (blueButton !== 0) {
     blueDrawn = false;
-
-    mPercStrings.setVolume(0)
   }
 
   // Check if serial data is available and process it
