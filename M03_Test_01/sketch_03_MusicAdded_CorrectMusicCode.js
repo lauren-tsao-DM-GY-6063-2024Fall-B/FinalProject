@@ -27,7 +27,6 @@ let bluePosX, bluePosY; // Variables to store the blue circle's position
 let blueDrawn = false;  // Flag to track if the blue circle has been drawn
 
 let mPiano;
-let mPianoVol;
 
 // load song stems
 function preload() {
@@ -77,6 +76,7 @@ function connectToSerial() {
   if (!mSerial.opened()) {
     mSerial.open(9600); // make sure this is the same speed as Serial.begin in Arduino
     connectButton.hide(); // hide the connect button once connected
+    mPiano.setVolume(0.2);
     mPiano.play();
     mPiano.loop();
   }
@@ -125,8 +125,6 @@ function draw() {
     uScale = random(100, 300); // range of randomized uniform sizes
     angleStep = random(8, 10); // different levels of smoothness of shapes
 
-    mPiano.setVolume(1)
-
     redDrawn = true;  // Set flag to true to prevent multiple position updates
   }
 
@@ -135,14 +133,14 @@ function draw() {
     stroke(0, random(0, 200), random(255), 35); // (color, alpha value)
     strokeWeight(2);
 
+
+
     superformula(redPosX, redPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints);
   }
 
   // Reset the circle when the button goes back to a state other than 0
   if (redButton !== 0) {
     redDrawn = false;
-
-    mPiano.setVolume(0)
   }
 
   //// BLUE BUTTON ////

@@ -27,13 +27,14 @@ let bluePosX, bluePosY; // Variables to store the blue circle's position
 let blueDrawn = false;  // Flag to track if the blue circle has been drawn
 
 let mPiano;
-let mPianoVol;
 
 // load song stems
-function preload() {
-  mPiano = loadSound("../assets/piano.mp3");
-}
-
+// // old version
+// function preload() {
+//   mPiano = loadSound("../assets/piano.mp3");
+//   mPercString = loadSound("../assets/percussion_strings.mp3");
+//   mKickSynth = loadSound("../assets/kicks_synths.mp3");
+// }
 
 //superformula function
 function superformula(xCenter, yCenter, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints) {
@@ -105,6 +106,8 @@ function setup() {
   connectButton.style('border', '2px solid #0056b3');
 
   connectButton.mousePressed(connectToSerial); // execute connectToSerial when button is pressed
+
+  mPiano = createAudio('../assets/piano.mp3');
 }
 
 function draw() {
@@ -125,8 +128,6 @@ function draw() {
     uScale = random(100, 300); // range of randomized uniform sizes
     angleStep = random(8, 10); // different levels of smoothness of shapes
 
-    mPiano.setVolume(1)
-
     redDrawn = true;  // Set flag to true to prevent multiple position updates
   }
 
@@ -135,14 +136,14 @@ function draw() {
     stroke(0, random(0, 200), random(255), 35); // (color, alpha value)
     strokeWeight(2);
 
+
+
     superformula(redPosX, redPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints);
   }
 
   // Reset the circle when the button goes back to a state other than 0
   if (redButton !== 0) {
     redDrawn = false;
-
-    mPiano.setVolume(0)
   }
 
   //// BLUE BUTTON ////
