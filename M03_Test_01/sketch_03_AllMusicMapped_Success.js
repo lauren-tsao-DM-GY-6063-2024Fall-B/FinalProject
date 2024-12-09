@@ -2,39 +2,23 @@ let numPoints = 5; // this gives the white inner outlines
 let x, y;
 let r = 10;
 
-// RED SUPERFORMULA VARIABLES
 let angleStep = 20;
 let currentAngle = 0; // Initialize currentAngle globally
 let spikeFactor = 1;
+
 let sharpControl = -1;
 let xControl = 0;
 let yControl = 0;
+
 let uScale = 200; // Define uScale globally
 let xScale = 1;
-let yScale = 1; 
-
-// GREEN SUPERFORMULA VARIABLES
-let GnumPoints = 100; // this gives the white inner outlines
-let Gx, Gy;
-let Gr = 10;
-
-let GangleStep = 20;
-let GcurrentAngle = 0; // Initialize currentAngle globally
-let GspikeFactor = 1;
-let GsharpControl = -1;
-let GxControl = 0;
-let GyControl = 0;
-let GuScale = 200; // Define uScale globally
-let GxScale = 1;
-let GyScale = 1; 
-
-// TRANSPARENCY OBJECT
-let opacity = { red: 35, blue: 35, yellow: 255, green: 50 };
+let yScale = 1;
+ 
 
 let mSerial;
 let connectButton;
 
-let redButton, blueButton, yellowButton, greenButton;
+let redButton, blueButton;
 
 let redPosX, redPosY;  // Variables to store the red circle's position
 let redDrawn = false;  // Flag to track if the red circle has been drawn
@@ -60,7 +44,7 @@ function preload() {
 }
 
 
-//red superformula function
+//superformula function
 function superformula(xCenter, yCenter, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints) {
   beginShape();
   translate(xCenter, yCenter);
@@ -70,20 +54,6 @@ function superformula(xCenter, yCenter, xScale, yScale, spikeFactor, xControl, y
     x = r * cos(currentAngle);
     y = r * sin(currentAngle);
     curveVertex(x, y);
-  }
-  endShape();
-}
-
-//green superformula function
-function Gsuperformula(GxCenter, GyCenter, GxScale, GyScale, GspikeFactor, GxControl, GyControl, GsharpControl, GangleStep, GnumPoints) {
-  beginShape();
-  translate(GxCenter, GyCenter);
-  for (let i = 1; i < GnumPoints; i++) {
-    Gr = GuScale * pow(((pow(abs(cos(GspikeFactor * GcurrentAngle / 4) / GxScale), GxControl)) + (pow(abs(sin(GspikeFactor * GcurrentAngle / 4) / GyScale), GyControl))), (-1 / GsharpControl)); // Superformula formula
-    GcurrentAngle = GcurrentAngle + GangleStep;
-    Gx = Gr * cos(GcurrentAngle);
-    Gy = Gr * sin(GcurrentAngle);
-    curveVertex(Gx, Gy);
   }
   endShape();
 }
@@ -172,7 +142,7 @@ function draw() {
     sharpControl = random(20); // lowering = sharper edges
     xControl = random(100); // adjust xControl and yControl to adjust form, (e.g. one side longer or curvier than the other)
     yControl = random(6);
-    uScale = random(100, 300); // range of randomized uniform sizes
+    uScale = random(500, 700); // range of randomized uniform sizes
     angleStep = random(8, 10); // different levels of smoothness of shapes
 
     mPiano.setVolume(1)
@@ -185,7 +155,7 @@ function draw() {
     push();
 
     blendMode(MULTIPLY);
-    stroke(255, 0, random(100, 255), opacity.red); // (color, alpha value)
+    stroke(255, 0, random(100, 255), 35); // (color, alpha value)
     strokeWeight(2);
 
     superformula(redPosX, redPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints);
@@ -214,11 +184,11 @@ function draw() {
   if (blueDrawn) {
     push();
 
-    blendMode(HARD_LIGHT);
+    blendMode(MULTIPLY);
     bluePosX = random(width);  // New random X position
     bluePosY = random(height); // New random Y position
-    fill(255);
-    stroke(0, random(0, 200), random(255), opacity.blue);;
+    fill(0, random(0, 200), random(255), 35);
+    noStroke();
     ellipse(bluePosX, bluePosY, random(50, 100));  // Draw the blue circle at the generated position
 
     pop();
@@ -248,7 +218,7 @@ function draw() {
     blendMode(SUBTRACT);
     yellowPosX = random(width);  // New random X position
     yellowPosY = random(height); // New random Y position
-    stroke(random(200, 236), random(200, 215), 0, opacity.yellow);
+    stroke(random(200, 236), random(200, 215), 0, 255);
     strokeWeight(1);
     noFill();
     rect(yellowPosX, yellowPosY, random(100, 300));  // Draw the yellow square at the generated position
@@ -268,6 +238,13 @@ function draw() {
   // Only generate a new random position when redButton is pressed (changes to 0)
   if (greenButton === 0 && !greenDrawn) {
 
+    // spikeFactor = int(random(100, 150)); // smaller value = simpler, circular or polygonal shapes, larger value = more complex star-like shapes.
+    // sharpControl = random(20); // lowering = sharper edges
+    // xControl = random(300); // adjust xControl and yControl to adjust form, (e.g. one side longer or curvier than the other)
+    // yControl = random(200);
+    // uScale = random(50, 80); // range of randomized uniform sizes
+    // angleStep = random(2, 6); // different levels of smoothness of shapes
+
     mSynths.setVolume(1)
 
     greenDrawn = true;  // Set flag to true to prevent multiple position updates
@@ -280,18 +257,20 @@ function draw() {
     greenPosX = random(width);  // New random X position
     greenPosY = random(height); // New random Y position
 
-    GspikeFactor = int(random(100, 150)); // smaller value = simpler, circular or polygonal shapes, larger value = more complex star-like shapes.
-    GsharpControl = random(20); // lowering = sharper edges
-    GxControl = random(3); // adjust xControl and yControl to adjust form, (e.g. one side longer or curvier than the other)
-    GyControl = random(5);
-    GuScale = random(50, 80); // range of randomized uniform sizes
-    GangleStep = random(2, 6); // different levels of smoothness of shapes
+    spikeFactor = int(random(100, 150)); // smaller value = simpler, circular or polygonal shapes, larger value = more complex star-like shapes.
+    sharpControl = random(20); // lowering = sharper edges
+    xControl = random(3); // adjust xControl and yControl to adjust form, (e.g. one side longer or curvier than the other)
+    yControl = random(5);
+    uScale = random(50, 80); // range of randomized uniform sizes
+    angleStep = random(2, 6); // different levels of smoothness of shapes
 
-    blendMode(MULTIPLY);
-    stroke(0, random(200, 255), random(255), opacity.green); // (color, alpha value)
+
+
+    blendMode(BLEND);
+    stroke(0, 255, random(20, 50), 50); // (color, alpha value)
     strokeWeight(2);
 
-    Gsuperformula(greenPosX, greenPosY, GxScale, GyScale, GspikeFactor, GxControl, GyControl, GsharpControl, GangleStep, GnumPoints);
+    superformula(greenPosX, greenPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, 30);
     
     pop();
   }
