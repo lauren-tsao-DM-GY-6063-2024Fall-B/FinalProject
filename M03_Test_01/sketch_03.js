@@ -9,7 +9,7 @@ let spikeFactor = 1;
 let sharpControl = -1;
 let xControl = 0;
 let yControl = 0;
-let uScale = 200; // Define uScale globally
+let uScale = 200;
 let xScale = 1;
 let yScale = 1; 
 
@@ -36,8 +36,8 @@ let connectButton;
 
 let redButton, blueButton, yellowButton, greenButton;
 
-let redPosX, redPosY;  // to store the red visual's position
-let redDrawn = false;  // to track if the red visual has been drawn
+let redPosX, redPosY;  // to store the red shape's position
+let redDrawn = false;  // set initial state to false (i.e no red shape drawn)
 
 let bluePosX, bluePosY;
 let blueDrawn = false;
@@ -159,6 +159,8 @@ function setup() {
 
 function draw() {
 
+  /////// start of button settings ///////
+
   //// RED BUTTON ////
 
   // only generate a new random position when redButton is pressed (i.e when button value changes to 0)
@@ -203,6 +205,9 @@ function draw() {
     mPiano.setVolume(0) // ..set volume to 0 (mute)
   }
 
+
+
+
   //// BLUE BUTTON ////
 
   // might decide to add randomized parameters here
@@ -213,7 +218,8 @@ function draw() {
     blueDrawn = true;
   }
 
-  // draw the blue shapes at constantly randomized positions
+
+  // draw the blue shapes at constantly randomizing positions
   if (blueDrawn) {
     push();
 
@@ -227,61 +233,64 @@ function draw() {
     pop();
   }
 
-  // Reset the circle when the button goes back to a state other than 0
+
   if (blueButton !== 0) {
     blueDrawn = false;
 
     mPercStrings.setVolume(0)
   }
 
+
+
+
   //// YELLOW BUTTON ////
 
-  // Only generate a new random position when blueButton is pressed (changes to 0)
   if (yellowButton === 0 && !yellowDrawn) {
 
     mKickSnares.setVolume(1)
 
-    yellowDrawn = true;  // Set flag to true to prevent multiple position updates
+    yellowDrawn = true;
   }
 
-  // Draw the blue circle at the generated position
+
   if (yellowDrawn) {
     push();
 
     blendMode(HARD_LIGHT);
-    yellowPosX = random(width);  // New random X position
-    yellowPosY = random(height); // New random Y position
+    yellowPosX = random(width);
+    yellowPosY = random(height);
     stroke(random(200, 236), random(200, 215), 0, opacity.yellow);
     strokeWeight(1);
     noFill();
-    rect(yellowPosX, yellowPosY, random(100, 300));  // Draw the yellow square at the generated position
+    rect(yellowPosX, yellowPosY, random(100, 300));
 
     pop();
   }
 
-  // Reset the circle when the button goes back to a state other than 0
+  
   if (yellowButton !== 0) {
     yellowDrawn = false;
 
     mKickSnares.setVolume(0)
   }
 
+
+
+
   //// GREEN BUTTON ////
 
-  // Only generate a new random position when redButton is pressed (changes to 0)
   if (greenButton === 0 && !greenDrawn) {
 
     mSynths.setVolume(1)
 
-    greenDrawn = true;  // Set flag to true to prevent multiple position updates
+    greenDrawn = true;
   }
 
-  // Draw the red circle at the generated position
   if (greenDrawn) {
     push();
 
-    greenPosX = random(width);  // New random X position
-    greenPosY = random(height); // New random Y position
+    greenPosX = random(width);
+    greenPosY = random(height);
 
     GspikeFactor = int(random(100, 150)); // smaller value = simpler, circular or polygonal shapes, larger value = more complex star-like shapes.
     GsharpControl = random(20); // lowering = sharper edges
@@ -291,7 +300,7 @@ function draw() {
     GangleStep = random(2, 6); // different levels of smoothness of shapes
 
     blendMode(MULTIPLY);
-    stroke(0, random(200, 255), random(255), opacity.green); // (color, alpha value)
+    stroke(0, random(200, 255), random(255), opacity.green);
     strokeWeight(2);
 
     Gsuperformula(greenPosX, greenPosY, GxScale, GyScale, GspikeFactor, GxControl, GyControl, GsharpControl, GangleStep, GnumPoints);
@@ -299,16 +308,17 @@ function draw() {
     pop();
   }
 
-  // Reset the circle when the button goes back to a state other than 0
   if (greenButton !== 0) {
     greenDrawn = false;
 
     mSynths.setVolume(0)
   }
 
-  
 
-  // Check if serial data is available and process it
+  /////// end of button settings ///////
+
+
+  // check if serial data is open -> if there is incoming data -> process the data
   if (mSerial.opened() && mSerial.availableBytes() > 0) {
     receiveSerial();
   }
