@@ -4,7 +4,7 @@ let r = 10;
 
 // RED SUPERFORMULA VARIABLES
 let angleStep = 20;
-let currentAngle = 0; // Initialize currentAngle globally
+let currentAngle = 0;
 let spikeFactor = 1;
 let sharpControl = -1;
 let xControl = 0;
@@ -14,17 +14,17 @@ let xScale = 1;
 let yScale = 1; 
 
 // GREEN SUPERFORMULA VARIABLES
-let GnumPoints = 100; // this gives the white inner outlines
+let GnumPoints = 100;
 let Gx, Gy;
 let Gr = 10;
 
 let GangleStep = 20;
-let GcurrentAngle = 0; // Initialize currentAngle globally
+let GcurrentAngle = 0;
 let GspikeFactor = 1;
 let GsharpControl = -1;
 let GxControl = 0;
 let GyControl = 0;
-let GuScale = 200; // Define uScale globally
+let GuScale = 200;
 let GxScale = 1;
 let GyScale = 1; 
 
@@ -36,11 +36,11 @@ let connectButton;
 
 let redButton, blueButton, yellowButton, greenButton;
 
-let redPosX, redPosY;  // Variables to store the red circle's position
-let redDrawn = false;  // Flag to track if the red circle has been drawn
+let redPosX, redPosY;  // to store the red visual's position
+let redDrawn = false;  // to track if the red visual has been drawn
 
-let bluePosX, bluePosY; // Variables to store the blue circle's position
-let blueDrawn = false;  // Flag to track if the blue circle has been drawn
+let bluePosX, bluePosY;
+let blueDrawn = false;
 
 let yellowPosX, yellowPosY;
 let yellowDrawn = false;
@@ -60,7 +60,7 @@ function preload() {
 }
 
 
-//red superformula function
+// RED SUPERFORMULA FUNCTION
 function superformula(xCenter, yCenter, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints) {
   beginShape();
   translate(xCenter, yCenter);
@@ -74,7 +74,7 @@ function superformula(xCenter, yCenter, xScale, yScale, spikeFactor, xControl, y
   endShape();
 }
 
-//green superformula function
+// GREEN SUPERFORMULA FUNCTION
 function Gsuperformula(GxCenter, GyCenter, GxScale, GyScale, GspikeFactor, GxControl, GyControl, GsharpControl, GangleStep, GnumPoints) {
   beginShape();
   translate(GxCenter, GyCenter);
@@ -91,23 +91,23 @@ function Gsuperformula(GxCenter, GyCenter, GxScale, GyScale, GspikeFactor, GxCon
 
 
 function receiveSerial() {
-  let line = mSerial.readUntil("\n"); // read from serial line (println from Arduino) until it gets to the end of the line
+  let line = mSerial.readUntil("\n");
 
   if (line) {
-    print(line); // print received line to JavaScript console
+    print(line);
 
-    // splitting the line into sensor values
+    // splitting the line into button values
     let buttonValues = split(line, ','); // split line at ','
 
-    if (buttonValues.length === 4) { // if there are exactly 3 values in the array after splitting..
-      let buttonV1 = int(buttonValues[0]); // first sensor value
-      let buttonV2 = int(buttonValues[1]); // second sensor value
-      let buttonV3 = int(buttonValues[2]); // third sensor value
-      let buttonV4 = int(buttonValues[3]); // third sensor value
+    if (buttonValues.length === 4) { // if there are exactly 4 values in the array after splitting..
+      let buttonV1 = int(buttonValues[0]); // first button value (red)
+      let buttonV2 = int(buttonValues[1]); // second button value (blue)
+      let buttonV3 = int(buttonValues[2]); // third button value (yellow)
+      let buttonV4 = int(buttonValues[3]); // fourth button value (green)
 
-      // map the sensor values to appropriate ranges
-      redButton = buttonV1;  // Set the redButton value to buttonV1
-      blueButton = buttonV2;  // Set the blue Button value to buttonV2
+      // assign button variables to the above button values
+      redButton = buttonV1;
+      blueButton = buttonV2;
       yellowButton = buttonV3;
       greenButton = buttonV4;
     }
@@ -117,10 +117,10 @@ function receiveSerial() {
 // function to connect to the serial port
 function connectToSerial() {
   if (!mSerial.opened()) {
-    mSerial.open(9600); // make sure this is the same speed as Serial.begin in Arduino
+    mSerial.open(9600); // always make sure this is the same speed as Serial.begin in Arduino
     connectButton.hide(); // hide the connect button once connected
-    mPiano.play();
-    mPiano.loop();
+    mPiano.play(); // play mPiano stem
+    mPiano.loop(); // loop mPiano stem
     mPercStrings.play();
     mPercStrings.loop();
     mKickSnares.play();
@@ -134,7 +134,7 @@ function setup() {
   background(255);
   createCanvas(windowWidth, windowHeight);
 
-  // set initial values
+  // set starting values
   redButton = 1;
   blueButton = 1;
   yellowButton = 1;
@@ -144,14 +144,14 @@ function setup() {
   mSerial = createSerial(); // from the p5.js serial library
 
   // create button to connect to the serial port
-  connectButton = createButton("Click me to connect To Serial!");
-  connectButton.position(width / 2 - 210, height / 2);
+  connectButton = createButton("Click to connect to serial 🥣");
+  connectButton.position(width / 2 - 170, height / 2);
 
   // styling the button
-  connectButton.style('font-family', 'Courier New');
+  connectButton.style('font-family', 'Georgia');
   connectButton.style('font-size', '24px');
-  connectButton.style('color', '#ffffff');
-  connectButton.style('background-color', '#007bff');
+  connectButton.style('color', '#00000');
+  connectButton.style('background-color', '#ffffff');
   connectButton.style('border', '2px solid #0056b3');
 
   connectButton.mousePressed(connectToSerial); // execute connectToSerial when button is pressed
@@ -161,13 +161,14 @@ function draw() {
 
   //// RED BUTTON ////
 
-  // Only generate a new random position when redButton is pressed (changes to 0)
-  if (redButton === 0 && !redDrawn) {
+  // only generate a new random position when redButton is pressed (i.e when button value changes to 0)
+  if (redButton === 0 && !redDrawn) { // if redButton value is strictly 0 and redDrawn is false (i.e has not been drawn yet), execute this block of code
 
-    // Generate new random position
-    redPosX = random(width);  // New random X position
-    redPosY = random(height); // New random Y position
+    //generate new random position
+    redPosX = random(width);
+    redPosY = random(height);
 
+    // generate new random parameters
     spikeFactor = int(random(30, 40)); // smaller value = simpler, circular or polygonal shapes, larger value = more complex star-like shapes.
     sharpControl = random(20); // lowering = sharper edges
     xControl = random(100); // adjust xControl and yControl to adjust form, (e.g. one side longer or curvier than the other)
@@ -175,17 +176,19 @@ function draw() {
     uScale = random(300, 400); // range of randomized uniform sizes
     angleStep = random(8, 10); // different levels of smoothness of shapes
 
+    // set volume of song to 1 (max volume)
+    // place here and NOT under redDrawn to ensure that the volume change always and only occur with the visual
     mPiano.setVolume(1)
 
-    redDrawn = true;  // Set flag to true to prevent multiple position updates
+    redDrawn = true;  // set to 'true' to prevent above code from running again (i.e finalizes the randomized shape and stops the shape of constantly updating)
   }
 
-  // Draw the red circle at the generated position
+  // draw red shape based on above generated parameters and position
   if (redDrawn) {
     push();
 
     blendMode(MULTIPLY);
-    stroke(255, 0, random(100, 255), opacity.red); // (color, alpha value)
+    stroke(255, 0, random(100, 255), opacity.red);
     strokeWeight(2);
 
     superformula(redPosX, redPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints);
@@ -193,33 +196,33 @@ function draw() {
     pop();
   }
 
-  // Reset the circle when the button goes back to a state other than 0
-  if (redButton !== 0) {
-    redDrawn = false;
+  // when button is released/not being pressed (i.e not equal to 0) reset and re-execute the above two 'if' statements
+  if (redButton !== 0) { // if value of button is not 0..
+    redDrawn = false; // ..set to false so that the above 'if' statements can be executed
 
-    mPiano.setVolume(0)
+    mPiano.setVolume(0) // ..set volume to 0 (mute)
   }
 
   //// BLUE BUTTON ////
 
-  // Only generate a new random position when blueButton is pressed (changes to 0)
+  // might decide to add randomized parameters here
   if (blueButton === 0 && !blueDrawn) {
 
     mPercStrings.setVolume(1)
 
-    blueDrawn = true;  // Set flag to true to prevent multiple position updates
+    blueDrawn = true;
   }
 
-  // Draw the blue circle at the generated position
+  // draw the blue shapes at constantly randomized positions
   if (blueDrawn) {
     push();
 
     blendMode(SCREEN);
-    bluePosX = random(width);  // New random X position
-    bluePosY = random(height); // New random Y position
+    bluePosX = random(width);
+    bluePosY = random(height);
     fill(255);
-    stroke(0, random(0, 200), random(255), opacity.blue);;
-    ellipse(bluePosX, bluePosY, random(50, 100));  // Draw the blue circle at the generated position
+    stroke(0, random(0, 200), random(255), opacity.blue);
+    ellipse(bluePosX, bluePosY, random(50, 100));
 
     pop();
   }
