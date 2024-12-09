@@ -2,7 +2,7 @@
 
 ### Milestone #3
 
-#### Updated Schematic Drawing
+#### Updated Circuit Diagram
 - Please click [here](https://drive.google.com/file/d/1nWtI7il0jHDfFgxtHEY3szEPbMTn_BiJ/view?usp=sharing).
 - Applied this update to the Milestone #2 Write-up.
 
