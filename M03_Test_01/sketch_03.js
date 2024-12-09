@@ -172,7 +172,7 @@ function draw() {
     sharpControl = random(20); // lowering = sharper edges
     xControl = random(100); // adjust xControl and yControl to adjust form, (e.g. one side longer or curvier than the other)
     yControl = random(6);
-    uScale = random(100, 300); // range of randomized uniform sizes
+    uScale = random(300, 400); // range of randomized uniform sizes
     angleStep = random(8, 10); // different levels of smoothness of shapes
 
     mPiano.setVolume(1)
