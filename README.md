@@ -1,5 +1,14 @@
 ## Creative Coding (DM-GY 6063) - Final Project 
 
+### Milestone #3
+
+#### Updated Schemetic Drawing
+- Please click [here](https://drive.google.com/file/d/1nWtI7il0jHDfFgxtHEY3szEPbMTn_BiJ/view?usp=sharing).
+
+#### Finite State Machine
+- Please click [here](https://drive.google.com/file/d/1qslxWGsJ-36B4F_gMpMzcs9AWAo9q5zi/view?usp=sharing).
+- This FSM is for the red button (named 'redButton' in the p5.js code) and its logic will apply to the other buttons as well.
+
 ### Milestone #2
 
 #### Write-up
