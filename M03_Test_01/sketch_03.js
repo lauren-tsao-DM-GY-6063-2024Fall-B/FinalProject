@@ -214,7 +214,7 @@ function draw() {
   if (blueDrawn) {
     push();
 
-    blendMode(HARD_LIGHT);
+    blendMode(SCREEN);
     bluePosX = random(width);  // New random X position
     bluePosY = random(height); // New random Y position
     fill(255);
@@ -245,7 +245,7 @@ function draw() {
   if (yellowDrawn) {
     push();
 
-    blendMode(SUBTRACT);
+    blendMode(HARD_LIGHT);
     yellowPosX = random(width);  // New random X position
     yellowPosY = random(height); // New random Y position
     stroke(random(200, 236), random(200, 215), 0, opacity.yellow);
