@@ -1,4 +1,4 @@
-let numPoints = 5; // this gives the white inner outlines
+let numPoints = 5; // this gives the superformula shapes the white inner outlines
 let x, y;
 let r = 10;
 
