@@ -169,8 +169,8 @@ function draw() {
   // only generate a new random position when redButton is pressed (i.e when button value changes to 0)
   if (redButton === 0 && !redDrawn) { // if redButton value is strictly 0 and redDrawn is false (i.e has not been drawn yet), execute this block of code
     
-    redPosX = random(width);
-    redPosY = random(height);
+    redPosX = random(width/10, width - width/10);
+    redPosY = random(height/10, height - height/10);
     
     spikeFactor = int(random(30, 40));
     sharpControl = random(10, 15);
@@ -196,8 +196,8 @@ function draw() {
   if (millis() - lastRedDrawTime > redInterval) {
       
     // Update the random position
-    redPosX = random(width);
-    redPosY = random(height);
+    redPosX = random(width/10, width - width/10);
+    redPosY = random(height/10, height - height/10);
   
     spikeFactor = int(random(30, 40));
     sharpControl = random(10, 15);
@@ -238,7 +238,7 @@ function draw() {
     bluePosX = random(width);
     bluePosY = random(height);
     fill(255, random(30, 255));
-    strokeWeight(random(1, 5))
+    strokeWeight(random(1, 3))
     stroke(0, random(0, 200), random(255), opacity.blue);
     ellipse(bluePosX, bluePosY, random(50, 100));
 
@@ -336,4 +336,10 @@ function draw() {
     receiveSerial();
   }
   
+}
+
+function keyPressed() {
+  if (key === ' ' || keyCode === 32) { // 32 is the key code for the spacebar in JavaScript
+    clear();  // clears the canvas when spacebar is pressed
+  }
 }
