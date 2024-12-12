@@ -1,4 +1,4 @@
-let numPoints = 7; // this gives the superformula shapes the white inner outlines
+let numPoints = 5; // this gives the superformula shapes the white inner outlines
 let x, y;
 let r = 1;
 
@@ -186,7 +186,7 @@ function draw() {
   // Draw the red shape at the new random position
   if (redDrawn) {
     push();
-    blendMode(MULTIPLY);
+    blendMode(DIFFERENCE);
     stroke(255, 0, random(100, 255), opacity.red);
     strokeWeight(2);
     superformula(redPosX, redPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints);
@@ -239,7 +239,7 @@ function draw() {
     bluePosY = random(height);
     fill(255, random(30, 255));
     strokeWeight(random(1, 3))
-    stroke(0, random(0, 50), random(190, 255), opacity.blue);
+    stroke(0, random(0, 200), random(255), opacity.blue);
     ellipse(bluePosX, bluePosY, random(50, 100));
 
     pop();
@@ -271,7 +271,7 @@ function draw() {
     blendMode(HARD_LIGHT);
     yellowPosX = random(width);
     yellowPosY = random(height);
-    stroke(255, 243, 120, opacity.yellow);
+    stroke(random(200, 236), random(200, 215), 0, opacity.yellow);
     strokeWeight(1);
     fill(random(200, 236), random(200, 215), 0, random(0, 30));
     rotate(random(50, 100))
