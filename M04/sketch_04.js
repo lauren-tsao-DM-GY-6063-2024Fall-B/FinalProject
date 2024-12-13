@@ -39,8 +39,8 @@ let redButton, blueButton, yellowButton, greenButton;
 let redPosX, redPosY;  // to store the red shape's position
 let redDrawn = false;  // set initial state to false (i.e no red shape drawn)
 
-let lastRedDrawTime = 0; // Track the last time the red shape was drawn
-let redInterval = 3000; // Set the interval to 3000ms (3 seconds)
+let redDrawnTimeStamp = 0; // stores last time red shape was drawn
+let redInterval = 3000; // set the interval between drawing of red shapes
 
 let bluePosX, bluePosY;
 let blueDrawn = false;
@@ -169,9 +169,11 @@ function draw() {
   // only generate a new random position when redButton is pressed (i.e when button value changes to 0)
   if (redButton === 0 && !redDrawn) { // if redButton value is strictly 0 and redDrawn is false (i.e has not been drawn yet), execute this block of code
     
+    //generate new random position
     redPosX = random(width/10, width - width/10);
     redPosY = random(height/10, height - height/10);
     
+    // generate new random parameters
     spikeFactor = int(random(30, 40));
     sharpControl = random(10, 15);
     xControl = random(20);
@@ -179,11 +181,14 @@ function draw() {
     uScale = random(200, 400);
     angleStep = random(8, 10);
 
+    // set volume of song to 1 (max volume)
+    // place here and NOT under redDrawn to ensure that the volume change always and only occur with the visual
     mPiano.setVolume(1);
-    redDrawn = true;
+
+    redDrawn = true; // set to 'true' to prevent above code from running again (i.e finalizes the randomized shape and stops the shape of constantly updating)
     }
 
-  // Draw the red shape at the new random position
+  // draw red shape based on above generated parameters and position
   if (redDrawn) {
     push();
     blendMode(MULTIPLY);
@@ -193,9 +198,9 @@ function draw() {
     pop();
   }
 
-  if (millis() - lastRedDrawTime > redInterval) {
-      
-    // Update the random position
+  if (millis() - redDrawnTimeStamp > redInterval) { // if time left over after millis minus last time red shape was drawn is greater than redInterval
+     
+    // draw another random shape based on the following parameters
     redPosX = random(width/10, width - width/10);
     redPosY = random(height/10, height - height/10);
   
@@ -206,7 +211,7 @@ function draw() {
     uScale = random(200, 400);
     angleStep = random(8, 10);
     
-    lastRedDrawTime = millis(); // Reset the timer
+    redDrawnTimeStamp = millis(); // stores the last time red shape was drawn
   }
 
   // when button is released/not being pressed (i.e not equal to 0) reset and re-execute the above two 'if' statements
