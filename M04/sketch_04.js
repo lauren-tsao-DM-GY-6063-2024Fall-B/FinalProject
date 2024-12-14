@@ -1,4 +1,4 @@
-let numPoints = 6; // this gives the superformula shapes the white inner outlines
+let numPoints = 7; // this gives the superformula shapes the white inner outlines
 let x, y;
 let r = 1;
 
@@ -40,7 +40,7 @@ let redPosX, redPosY;  // to store the red shape's position
 let redDrawn = false;  // set initial state to false (i.e no red shape drawn)
 
 let redDrawnTimeStamp = 0; // stores last time red shape was drawn
-let redInterval = 3000; // set the interval between drawing of red shapes
+let redInterval = 5000; // set the interval between drawing of red shapes
 
 let bluePosX, bluePosY;
 let blueDrawn = false;
@@ -241,6 +241,17 @@ function draw() {
     push();
 
     blendMode(ADD);
+    bluePosX = random(width);
+    bluePosY = random(height);
+    noStroke();
+    fill(214, 252, 251, random(30, 200));
+    ellipse(bluePosX, bluePosY, random(50, 100));
+
+    pop();
+
+    push();
+
+    blendMode(BLEND);
     bluePosX = random(width);
     bluePosY = random(height);
     noStroke();
