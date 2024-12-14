@@ -1,4 +1,4 @@
-let numPoints = 7; // this gives the superformula shapes the white inner outlines
+let numPoints = 6; // this gives the superformula shapes the white inner outlines
 let x, y;
 let r = 1;
 
@@ -170,15 +170,15 @@ function draw() {
   if (redButton === 0 && !redDrawn) { // if redButton value is strictly 0 and redDrawn is false (i.e has not been drawn yet), execute this block of code
     
     //generate new random position
-    redPosX = random(width/10, width - width/10);
-    redPosY = random(height/10, height - height/10);
+    redPosX = random(width/30, width - width/30);
+    redPosY = random(height/30, height - height/30);
     
     // generate new random parameters
     spikeFactor = int(random(30, 40));
     sharpControl = random(10, 15);
     xControl = random(20);
     yControl = random(6);
-    uScale = random(200, 400);
+    uScale = random([200, 300, 400]);
     angleStep = random(8, 10);
 
     // set volume of song to 1 (max volume)
@@ -192,6 +192,7 @@ function draw() {
   if (redDrawn) {
     push();
     blendMode(MULTIPLY);
+    noFill();
     stroke(255, 0, random(100, 255), opacity.red);
     strokeWeight(2);
     superformula(redPosX, redPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints);
@@ -201,14 +202,14 @@ function draw() {
   if (millis() - redDrawnTimeStamp > redInterval) { // if time left over after millis minus last time red shape was drawn is greater than redInterval
      
     // draw another random shape based on the following parameters
-    redPosX = random(width/10, width - width/10);
-    redPosY = random(height/10, height - height/10);
+    redPosX = random(width/30, width - width/30);
+    redPosY = random(height/30, height - height/30);
   
     spikeFactor = int(random(30, 40));
     sharpControl = random(10, 15);
     xControl = random(20);
     yControl = random(6);
-    uScale = random(200, 400);
+    uScale = random([200, 300, 400]);
     angleStep = random(8, 10);
     
     redDrawnTimeStamp = millis(); // stores the last time red shape was drawn
@@ -239,12 +240,11 @@ function draw() {
   if (blueDrawn) {
     push();
 
-    blendMode(SCREEN);
+    blendMode(ADD);
     bluePosX = random(width);
     bluePosY = random(height);
-    fill(255, random(30, 255));
-    strokeWeight(random(1, 3))
-    stroke(0, random(0, 50), random(190, 255), opacity.blue);
+    noStroke();
+    fill(214, 252, 251, random(30, 200));
     ellipse(bluePosX, bluePosY, random(50, 100));
 
     pop();
@@ -278,8 +278,7 @@ function draw() {
     yellowPosY = random(height);
     stroke(255, 243, 120, opacity.yellow);
     strokeWeight(1);
-    fill(random(200, 236), random(200, 215), 0, random(0, 30));
-    rotate(random(50, 100))
+    fill(random(200, 236), random(200, 215), 0, random(0, 10));
     rect(yellowPosX, yellowPosY, random(100, 500));
 
     pop();
