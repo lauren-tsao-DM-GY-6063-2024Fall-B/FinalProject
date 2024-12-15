@@ -29,7 +29,7 @@ let GxScale = 1;
 let GyScale = 1; 
 
 // TRANSPARENCY OBJECT
-let opacity = { red: 35, blue: 35, yellow: 255, green: 50 };
+let opacity = { red: 50, blue: 30, yellow: 255, green: 50 };
 
 let mSerial;
 let connectButton;
@@ -170,14 +170,12 @@ function draw() {
   if (redButton === 0 && !redDrawn) { // if redButton value is strictly 0 and redDrawn is false (i.e has not been drawn yet), execute this block of code
     
     //generate new random position
-    redPosX = random(width/30, width - width/30);
-    redPosY = random(height/30, height - height/30);
+    redPosX = random(width/20, width - width/20);
+    redPosY = random(height/20, height - height/20);
     
     // generate new random parameters
     spikeFactor = int(random(30, 40));
     sharpControl = random(10, 15);
-    xControl = random(20);
-    yControl = random(6);
     uScale = random([200, 300, 400]);
     angleStep = random(8, 10);
 
@@ -193,22 +191,20 @@ function draw() {
     push();
     blendMode(MULTIPLY);
     noFill();
-    stroke(255, 0, random(100, 255), opacity.red);
+    stroke(255, 0, random(100, 255), random(10, opacity.red));
     strokeWeight(2);
     superformula(redPosX, redPosY, xScale, yScale, spikeFactor, xControl, yControl, sharpControl, angleStep, numPoints);
     pop();
   }
 
-  if (millis() - redDrawnTimeStamp > redInterval) { // if time left over after millis minus last time red shape was drawn is greater than redInterval
+  if (millis() - redDrawnTimeStamp > redInterval) { // if the remaining time left after (millis - last time red shape was drawn) is greater than redInterval
      
     // draw another random shape based on the following parameters
-    redPosX = random(width/30, width - width/30);
-    redPosY = random(height/30, height - height/30);
+    redPosX = random(width/20, width - width/20);
+    redPosY = random(height/20, height - height/20);
   
     spikeFactor = int(random(30, 40));
     sharpControl = random(10, 15);
-    xControl = random(20);
-    yControl = random(6);
     uScale = random([200, 300, 400]);
     angleStep = random(8, 10);
     
@@ -219,7 +215,7 @@ function draw() {
   if (redButton !== 0) { // if value of button is not 0..
     redDrawn = false; // ..set to false so that the above 'if' statements can be executed
 
-    mPiano.setVolume(0) // ..set volume to 0 (mute)
+    mPiano.setVolume(0); // ..set volume to 0 (mute)
   }
 
 
@@ -230,7 +226,7 @@ function draw() {
   // might decide to add randomized parameters here
   if (blueButton === 0 && !blueDrawn) {
 
-    mPercStrings.setVolume(1)
+    mPercStrings.setVolume(1);
 
     blueDrawn = true;
   }
@@ -240,22 +236,20 @@ function draw() {
   if (blueDrawn) {
     push();
 
+    // blue circles (ADD mode)
     blendMode(ADD);
     bluePosX = random(width);
     bluePosY = random(height);
     noStroke();
-    fill(214, 252, 251, random(30, 200));
+    fill(214, 252, 251, random(opacity.blue, 100));
     ellipse(bluePosX, bluePosY, random(50, 100));
 
-    pop();
-
-    push();
-
+    // blue circles (BLEND mode)
     blendMode(BLEND);
     bluePosX = random(width);
     bluePosY = random(height);
     noStroke();
-    fill(214, 252, 251, random(30, 200));
+    fill(214, 252, 251, random(opacity.blue, 150));
     ellipse(bluePosX, bluePosY, random(50, 100));
 
     pop();
@@ -285,11 +279,18 @@ function draw() {
     push();
 
     blendMode(HARD_LIGHT);
-    yellowPosX = random(width);
-    yellowPosY = random(height);
+    yellowPosX = (random(width, -width/3));
+    yellowPosY = random(height, -height/3);
     stroke(255, 243, 120, opacity.yellow);
     strokeWeight(1);
     fill(random(200, 236), random(200, 215), 0, random(0, 10));
+    rect(yellowPosX, yellowPosY, random(100, 500));
+
+    blendMode(BLEND)
+    yellowPosX = random(width);
+    yellowPosY = random(height);
+    stroke(255, 192, 0, random(90, 150));
+    strokeWeight(1);
     rect(yellowPosX, yellowPosY, random(100, 500));
 
     pop();
