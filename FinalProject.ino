@@ -46,34 +46,5 @@ void loop() {
   Serial.print(",");
   Serial.println(btn4State);
 
-
-  // int btn1State = button1.getState();
-  // int btn2State = button2.getState();
-  // int btn3State = button3.getState();
-  // Serial.print("button 1 state: ");
-  // Serial.println(btn1State);
-  // Serial.print("button 2 state: ");
-  // Serial.println(btn2State);
-  // Serial.print("button 3 state: ");
-  // Serial.println(btn3State);
-
-  // if(button1.isPressed())
-  //   Serial.println("button1pressed");
-
-  // if(button1.isReleased())
-  //   Serial.println("button1released");
-
-  // if(button2.isPressed())
-  //   Serial.println("button2pressed");
-
-  // if(button2.isReleased())
-  //   Serial.println("button2released");
-
-  // if(button3.isPressed())
-  //   Serial.println("button3pressed");
-
-  // if(button3.isReleased())
-  //   Serial.println("button3released");
-
-    delay(100);
+  delay(100);
 }
