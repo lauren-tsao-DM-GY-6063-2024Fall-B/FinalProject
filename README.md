@@ -1,5 +1,10 @@
 ## Creative Coding (DM-GY 6063) - Final Project 
 
+### Milestone #4
+
+#### Finalized Write-up
+- Please click [here](https://docs.google.com/document/d/1JccoVjBEn8RD7UZSNLmNpwd3H_yzxf6EfbpuTMACJu4/edit?usp=sharing).
+
 ### Milestone #3
 
 #### Updated Circuit Diagram
