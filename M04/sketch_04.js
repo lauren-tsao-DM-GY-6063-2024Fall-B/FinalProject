@@ -3,7 +3,7 @@ let x, y;
 let r = 1;
 
 // RED SUPERFORMULA VARIABLES
-let angleStep = 20;
+let angleStep = 50;
 let currentAngle = 0;
 let spikeFactor = 1;
 let sharpControl = -1;
