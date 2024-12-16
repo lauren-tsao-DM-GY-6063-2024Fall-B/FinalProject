@@ -59,7 +59,7 @@ function preload() {
   mPiano = loadSound("../assets/piano.mp3");
   mPercStrings = loadSound("../assets/percussion_strings.mp3");
   mKickSnares = loadSound("../assets/kicks_snares.mp3");
-  mSynths = loadSound("../assets/synths.mp3")
+  mSynths = loadSound("../assets/synths.mp3");
 }
 
 
@@ -82,7 +82,7 @@ function Gsuperformula(GxCenter, GyCenter, GxScale, GyScale, GspikeFactor, GxCon
   beginShape();
   translate(GxCenter, GyCenter);
   for (let i = 1; i < GnumPoints; i++) {
-    Gr = GuScale * pow(((pow(abs(cos(GspikeFactor * GcurrentAngle / 4) / GxScale), GxControl)) + (pow(abs(sin(GspikeFactor * GcurrentAngle / 4) / GyScale), GyControl))), (-1 / GsharpControl)); // Superformula formula
+    Gr = GuScale * pow(((pow(abs(cos(GspikeFactor * GcurrentAngle / 4) / GxScale), GxControl)) + (pow(abs(sin(GspikeFactor * GcurrentAngle / 4) / GyScale), GyControl))), (-1 / GsharpControl));
     GcurrentAngle = GcurrentAngle + GangleStep;
     Gx = Gr * cos(GcurrentAngle);
     Gy = Gr * sin(GcurrentAngle);
@@ -259,7 +259,7 @@ function draw() {
   if (blueButton !== 0) {
     blueDrawn = false;
 
-    mPercStrings.setVolume(0)
+    mPercStrings.setVolume(0);
   }
 
 
@@ -269,7 +269,7 @@ function draw() {
 
   if (yellowButton === 0 && !yellowDrawn) {
 
-    mKickSnares.setVolume(1)
+    mKickSnares.setVolume(1);
 
     yellowDrawn = true;
   }
@@ -300,7 +300,7 @@ function draw() {
   if (yellowButton !== 0) {
     yellowDrawn = false;
 
-    mKickSnares.setVolume(0)
+    mKickSnares.setVolume(0);
   }
 
 
@@ -310,7 +310,7 @@ function draw() {
 
   if (greenButton === 0 && !greenDrawn) {
 
-    mSynths.setVolume(1)
+    mSynths.setVolume(1);
 
     greenDrawn = true;
   }
@@ -340,7 +340,7 @@ function draw() {
   if (greenButton !== 0) {
     greenDrawn = false;
 
-    mSynths.setVolume(0)
+    mSynths.setVolume(0);
   }
 
 
